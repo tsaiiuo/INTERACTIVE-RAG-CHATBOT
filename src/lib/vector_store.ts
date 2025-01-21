@@ -49,19 +49,34 @@ export class VectorStore {
       );
 
       // 3. 計算相似度並排序
+      interface VectorRecord extends RowDataPacket {
+        embedding: number[];
+      }
+      interface RessultRecord extends RowDataPacket {
+        content: string;
+        similarity: number;
+        role: string;
+      }
       const similarities = vectors
-        .map((vector) => ({
-          ...vector,
-          similarity: this.cosineSimilarity(queryEmbedding, vector.embedding),
-        }))
+        .map((vector) => {
+          const vectorRecord = vector as VectorRecord;
+          const embedding = vectorRecord.embedding;
+          return {
+            ...vector,
+            similarity: this.cosineSimilarity(queryEmbedding, embedding),
+          };
+        })
         .sort((a, b) => b.similarity - a.similarity);
 
       // 4. 返回前 k 個最相似的文檔
-      return similarities.slice(0, k).map((result) => ({
-        content: result.content,
-        similarity: result.similarity,
-        role: "assistant",
-      }));
+      return similarities.slice(0, k).map((result) => {
+        const resultRecord = result as RessultRecord;
+        return {
+          content: resultRecord.content,
+          similarity: result.similarity,
+          role: "assistant",
+        };
+      });
     } catch (error) {
       console.error("Error in similarity search:", error);
       return [];

@@ -12,7 +12,12 @@ export async function checkIPLimit(ip: string): Promise<boolean> {
     );
 
     const now = new Date();
-    const record = records[0];
+    interface IPUsageRecord extends RowDataPacket {
+      ip_address: string;
+      usage_count: number;
+      last_reset: string;
+    }
+    const record = records[0] as IPUsageRecord;
 
     if (!record) {
       // 新 IP，創建記錄
@@ -64,8 +69,14 @@ export async function getRemainingMessages(ip: string): Promise<number> {
     if (!records[0]) {
       return DAILY_LIMIT;
     }
+    interface IPUsageRecord extends RowDataPacket {
+      ip_address: string;
+      usage_count: number;
+      last_reset: string;
+    }
+    const record = records[0] as IPUsageRecord;
 
-    return Math.max(0, DAILY_LIMIT - records[0].usage_count);
+    return Math.max(0, DAILY_LIMIT - record.usage_count);
   } catch (error) {
     console.error("Error getting remaining messages:", error);
     return 0;
