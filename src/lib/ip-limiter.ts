@@ -1,7 +1,7 @@
 import { db } from "./db";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
-const DAILY_LIMIT = 10;
+const DAILY_LIMIT = 20;
 
 export async function checkIPLimit(ip: string): Promise<boolean> {
   try {

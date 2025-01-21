@@ -1,5 +1,7 @@
 # RAG-CHATBOT
 
+An intelligent Q&A system based on RAG (Retrieval-Augmented Generation) technology, focusing on database knowledge retrieval and conversation. This system combines vector retrieval and large language models to provide accurate and relevant answers.
+
 一個基於 RAG（Retrieval-Augmented Generation）技術的智能問答系統，專注於資料庫知識的檢索與對話。本系統結合了向量檢索和大型語言模型，提供準確且相關的回答。
 
 ## 系統特點
@@ -9,7 +11,7 @@
 - **智能檢索**：使用向量相似度搜索，確保回答的相關性
 - **即時對話**：基於 OpenAI GPT-3.5 的流式回應
 - **知識庫管理**：支援動態添加和更新知識
-- **使用限制**：IP 位址每日限制 10 次請求
+- **使用限制**：IP 位址每日限制 20 次請求
 - **即時統計**：顯示剩餘可用次數
 - **自動重置**：每日自動重置使用次數
 
@@ -45,24 +47,24 @@
 
 - Node.js 18+
 - MySQL 8.0+
-- OpenAI API 金鑰
+- OpenAI API Key
 
 ### 安裝步驟
 
-1. 克隆專案
+1. Clone the project
 
 ```bash
 git clone https://github.com/yourusername/rag-chatbot.git
 cd rag-chatbot
 ```
 
-2. 安裝依賴
+2. Install dependencies
 
 ```bash
 npm install
 ```
 
-3. 環境設定
+3. Environment setup
    創建 `.env.local` 文件：
 
 ```env
@@ -73,7 +75,7 @@ MYSQL_PASSWORD=your_mysql_password
 MYSQL_DATABASE=rag_chatbox
 ```
 
-4. 資料庫設定
+4. Database setup
 
 ```sql
 -- 創建向量儲存表
@@ -100,7 +102,7 @@ CREATE TABLE ip_usage (
 );
 ```
 
-5. 啟動開發伺服器
+5. Run the project
 
 ```bash
 npm run dev
@@ -119,7 +121,7 @@ Content-Type: application/json
 }
 ```
 
-### 知識庫 API
+### RAG 知識庫 API
 
 ```typescript
 GET /api/vector-store
@@ -177,14 +179,13 @@ src/
 
 ## 效能優化
 
-- 向量檢索快取
 - 資料庫連接池
 - 流式回應
 - 動態載入
 
-## 授權
+## 後續優化
 
-MIT License
+- 向量檢索快取
 
 ## 作者
 

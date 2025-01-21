@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 
 export default function ChatBot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [remainingMessages, setRemainingMessages] = useState<number>(10);
+  const [remainingMessages, setRemainingMessages] = useState<number>(20);
   const [error, setError] = useState<string>("");
 
   const {
